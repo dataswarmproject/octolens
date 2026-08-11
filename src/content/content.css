@@ -1,0 +1,540 @@
+/* OctoLens — injected strip + hovercard.
+   Uses GitHub Primer CSS variables (new names with legacy fallbacks) so the
+   UI follows the user's GitHub theme, light or dark, on both the classic
+   and the React repo-page layouts. */
+
+/* ================= strip ================= */
+
+#octolens-panel.ol-strip {
+  border: 1px solid var(--borderColor-default, var(--color-border-default, #d0d7de));
+  border-radius: 6px;
+  margin: 0 0 16px;
+  background: var(--bgColor-default, var(--color-canvas-default, #ffffff));
+  font-size: 12px;
+  color: var(--fgColor-default, var(--color-fg-default, #1f2328));
+}
+
+#octolens-panel .ol-strip-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background: var(--bgColor-muted, var(--color-canvas-subtle, #f6f8fa));
+  border-bottom: 1px solid var(--borderColor-default, var(--color-border-default, #d0d7de));
+  border-radius: 6px 6px 0 0;
+}
+
+#octolens-panel.ol-collapsed .ol-strip-head {
+  border-bottom: none;
+  border-radius: 6px;
+}
+
+#octolens-panel.ol-collapsed .ol-strip-body,
+#octolens-panel.ol-collapsed .ol-strip-foot {
+  display: none !important;
+}
+
+#octolens-panel .ol-strip-title {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+#octolens-panel .ol-strip-title .ol-icon {
+  color: var(--fgColor-accent, var(--color-accent-fg, #0969da));
+}
+
+#octolens-panel .ol-badge {
+  font-size: 10px;
+  font-weight: 600;
+  padding: 1px 7px;
+  border-radius: 999px;
+  border: 1px solid var(--borderColor-default, var(--color-border-default, #d0d7de));
+  color: var(--fgColor-muted, var(--color-fg-muted, #59636e));
+}
+
+#octolens-panel .ol-spacer { flex: 1; }
+
+.ol-icon {
+  display: inline-flex;
+  align-items: center;
+}
+
+#octolens-panel .ol-iconbtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  padding: 0;
+  border: 1px solid var(--borderColor-default, var(--color-border-default, #d0d7de));
+  border-radius: 6px;
+  background: transparent;
+  color: var(--fgColor-muted, var(--color-fg-muted, #59636e));
+  cursor: pointer;
+}
+
+#octolens-panel .ol-iconbtn:hover {
+  background: var(--bgColor-default, var(--color-canvas-default, #ffffff));
+  color: var(--fgColor-default, var(--color-fg-default, #1f2328));
+}
+
+#octolens-panel .ol-iconbtn.ol-active {
+  color: var(--fgColor-attention, var(--color-attention-fg, #9a6700));
+  border-color: var(--borderColor-attention-muted, var(--color-attention-muted, #d4a72c66));
+}
+
+#octolens-panel .ol-collapse-btn .ol-icon {
+  transition: transform 0.15s ease;
+}
+
+#octolens-panel.ol-collapsed .ol-collapse-btn .ol-icon {
+  transform: rotate(180deg);
+}
+
+/* ---- cards ---- */
+
+#octolens-panel .ol-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 8px;
+  padding: 10px 12px;
+}
+
+#octolens-panel .ol-card {
+  display: block;
+  border: 1px solid var(--borderColor-default, var(--color-border-default, #d0d7de));
+  border-radius: 6px;
+  padding: 10px;
+  text-decoration: none;
+  color: inherit;
+  min-width: 0;
+}
+
+#octolens-panel .ol-card:hover {
+  border-color: var(--fgColor-accent, var(--color-accent-fg, #0969da));
+  text-decoration: none;
+}
+
+.ol-card-top {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin-bottom: 5px;
+}
+
+.ol-avatar {
+  width: 18px;
+  height: 18px;
+  border-radius: 4px;
+  flex: none;
+  background: var(--bgColor-muted, var(--color-canvas-subtle, #f6f8fa));
+}
+
+.ol-card-name {
+  font-weight: 600;
+  font-size: 12.5px;
+  color: var(--fgColor-accent, var(--color-accent-fg, #0969da));
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#octolens-panel .ol-card:hover .ol-card-name {
+  text-decoration: underline;
+}
+
+.ol-card-desc {
+  margin: 0 0 7px;
+  font-size: 11.5px;
+  line-height: 1.45;
+  color: var(--fgColor-muted, var(--color-fg-muted, #59636e));
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+#octolens-panel .ol-card-desc {
+  min-height: 33px; /* keeps card heights even */
+}
+
+.ol-card-meta {
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  gap: 5px;
+  font-size: 11px;
+  color: var(--fgColor-muted, var(--color-fg-muted, #59636e));
+  overflow: hidden;
+  min-width: 0;
+}
+
+/* Never wrap meta segments; let the trailing one ellipsize instead so all
+   cards keep the same height. */
+.ol-card-meta > span {
+  white-space: nowrap;
+  flex: none;
+}
+
+.ol-card-meta > span:last-child {
+  flex: 0 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* "Why matched" topic tags shared with the current repo.
+   Single fixed-height line: tags shrink with ellipsis rather than wrapping,
+   so every card keeps exactly the same height. */
+.ol-card-tags {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: 4px;
+  margin: 0 0 6px;
+  min-height: 17px;
+  overflow: hidden;
+  min-width: 0;
+}
+
+.ol-tag {
+  flex: 0 1 auto;
+  min-width: 30px;
+  padding: 0 7px;
+  border-radius: 999px;
+  font-size: 10px;
+  line-height: 17px;
+  font-weight: 500;
+  color: var(--fgColor-accent, var(--color-accent-fg, #0969da));
+  background: var(--bgColor-accent-muted, var(--color-accent-subtle, #ddf4ff));
+  white-space: nowrap;
+  max-width: 110px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ol-tag-more {
+  flex: none;
+  color: var(--fgColor-muted, var(--color-fg-muted, #59636e));
+  background: var(--bgColor-muted, var(--color-canvas-subtle, #f6f8fa));
+}
+
+.ol-lang-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex: none;
+  display: inline-block;
+}
+
+.ol-stars {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  flex: none;
+}
+
+.ol-sep {
+  opacity: 0.6;
+}
+
+#octolens-panel .ol-note {
+  margin: 0;
+  padding: 10px 12px;
+  font-size: 11.5px;
+  line-height: 1.5;
+  color: var(--fgColor-muted, var(--color-fg-muted, #59636e));
+}
+
+/* ---- footer ---- */
+
+#octolens-panel .ol-strip-foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 12px;
+  border-top: 1px solid var(--borderColor-default, var(--color-border-default, #d0d7de));
+  color: var(--fgColor-muted, var(--color-fg-muted, #59636e));
+}
+
+#octolens-panel .ol-foot-group {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 5px;
+}
+
+#octolens-panel .ol-foot-label {
+  font-size: 11px;
+}
+
+#octolens-panel .ol-foot-div {
+  opacity: 0.4;
+  margin: 0 3px;
+}
+
+#octolens-panel .ol-chip {
+  padding: 1px 8px;
+  border: 1px solid var(--borderColor-default, var(--color-border-default, #d0d7de));
+  border-radius: 999px;
+  font-size: 10.5px;
+  background: var(--bgColor-muted, var(--color-canvas-subtle, #f6f8fa));
+  white-space: nowrap;
+}
+
+.ol-chip-warn {
+  color: var(--fgColor-attention, var(--color-attention-fg, #9a6700)) !important;
+  border: 1px solid var(--borderColor-attention-muted, var(--color-attention-muted, #d4a72c66)) !important;
+  background: var(--bgColor-attention-muted, var(--color-attention-subtle, #fff8c5)) !important;
+  padding: 1px 8px;
+  border-radius: 999px;
+  font-size: 10.5px;
+  white-space: nowrap;
+}
+
+#octolens-panel .ol-mini {
+  padding: 1px 8px;
+  border: 1px solid var(--borderColor-default, var(--color-border-default, #d0d7de));
+  border-radius: 6px;
+  font-size: 10.5px;
+  background: var(--bgColor-muted, var(--color-canvas-subtle, #f6f8fa));
+  color: var(--fgColor-default, var(--color-fg-default, #1f2328));
+  cursor: pointer;
+}
+
+#octolens-panel .ol-mini:hover {
+  border-color: var(--fgColor-accent, var(--color-accent-fg, #0969da));
+  color: var(--fgColor-accent, var(--color-accent-fg, #0969da));
+}
+
+#octolens-panel .ol-mini.ol-copied {
+  color: var(--fgColor-success, var(--color-success-fg, #1a7f37));
+  border-color: var(--fgColor-success, var(--color-success-fg, #1a7f37));
+}
+
+#octolens-panel .ol-flink {
+  color: var(--fgColor-accent, var(--color-accent-fg, #0969da));
+  text-decoration: none;
+  font-size: 10.5px;
+}
+
+#octolens-panel .ol-flink:hover {
+  text-decoration: underline;
+}
+
+.ol-offscreen {
+  position: fixed;
+  top: -1000px;
+  left: -1000px;
+  opacity: 0;
+}
+
+/* ---- skeleton ---- */
+
+#octolens-panel .ol-sk-card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+#octolens-panel .ol-sk-line {
+  height: 10px;
+  border-radius: 4px;
+}
+
+.ol-sk-shimmer {
+  background: linear-gradient(
+    90deg,
+    var(--bgColor-muted, var(--color-canvas-subtle, #f6f8fa)) 25%,
+    var(--borderColor-default, var(--color-border-default, #d0d7de)) 50%,
+    var(--bgColor-muted, var(--color-canvas-subtle, #f6f8fa)) 75%
+  );
+  background-size: 200% 100%;
+  animation: ol-shimmer 1.4s ease infinite;
+}
+
+@keyframes ol-shimmer {
+  from { background-position: 200% 0; }
+  to { background-position: -200% 0; }
+}
+
+/* ---- card preference actions ---- */
+
+#octolens-panel .ol-card { position: relative; }
+
+#octolens-panel .ol-card-actions {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  display: none;
+  gap: 3px;
+  background: var(--bgColor-default, var(--color-canvas-default, #ffffff));
+  border-radius: 6px;
+  padding: 1px;
+}
+
+#octolens-panel .ol-card:hover .ol-card-actions,
+#octolens-panel .ol-card:focus-within .ol-card-actions {
+  display: inline-flex;
+}
+
+#octolens-panel .ol-actbtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  padding: 0;
+  border: 1px solid var(--borderColor-default, var(--color-border-default, #d0d7de));
+  border-radius: 5px;
+  background: var(--bgColor-muted, var(--color-canvas-subtle, #f6f8fa));
+  color: var(--fgColor-muted, var(--color-fg-muted, #59636e));
+  cursor: pointer;
+}
+
+#octolens-panel .ol-actbtn:hover {
+  color: var(--fgColor-accent, var(--color-accent-fg, #0969da));
+  border-color: var(--fgColor-accent, var(--color-accent-fg, #0969da));
+}
+
+#octolens-panel .ol-actbtn.ol-liked {
+  color: var(--fgColor-success, var(--color-success-fg, #1a7f37));
+  border-color: var(--fgColor-success, var(--color-success-fg, #1a7f37));
+}
+
+#octolens-panel .ol-menu {
+  position: absolute;
+  top: 30px;
+  right: 6px;
+  z-index: 20;
+  min-width: 180px;
+  padding: 4px;
+  border: 1px solid var(--borderColor-default, var(--color-border-default, #d0d7de));
+  border-radius: 8px;
+  background: var(--overlay-bgColor, var(--color-canvas-overlay, #ffffff));
+  box-shadow: var(--shadow-floating-small, 0 8px 24px rgba(140, 149, 159, 0.2));
+}
+
+#octolens-panel .ol-menu-item {
+  display: block;
+  width: 100%;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
+  background: transparent;
+  color: var(--fgColor-default, var(--color-fg-default, #1f2328));
+  font-size: 11.5px;
+  text-align: left;
+  cursor: pointer;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#octolens-panel .ol-menu-item:hover {
+  background: var(--bgColor-muted, var(--color-canvas-subtle, #f6f8fa));
+  color: var(--fgColor-accent, var(--color-accent-fg, #0969da));
+}
+
+#octolens-panel .ol-hidden-pill {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 11px;
+  color: var(--fgColor-muted, var(--color-fg-muted, #59636e));
+  border-style: dashed;
+}
+
+/* ---- note editor ---- */
+
+#octolens-panel .ol-note-editor {
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--borderColor-default, var(--color-border-default, #d0d7de));
+  background: var(--bgColor-muted, var(--color-canvas-subtle, #f6f8fa));
+}
+
+#octolens-panel .ol-note-ta {
+  flex: 1;
+  min-height: 54px;
+  resize: vertical;
+  padding: 6px 8px;
+  border: 1px solid var(--borderColor-default, var(--color-border-default, #d0d7de));
+  border-radius: 6px;
+  background: var(--bgColor-default, var(--color-canvas-default, #ffffff));
+  color: var(--fgColor-default, var(--color-fg-default, #1f2328));
+  font-size: 12px;
+  font-family: inherit;
+}
+
+#octolens-panel.ol-collapsed .ol-note-editor { display: none; }
+
+#octolens-panel .ol-notebtn { position: relative; }
+
+#octolens-panel .ol-notebtn.ol-has-note::after {
+  content: '';
+  position: absolute;
+  top: 3px;
+  right: 3px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--fgColor-accent, var(--color-accent-fg, #0969da));
+}
+
+/* ---- accessibility ---- */
+
+#octolens-panel .ol-card:focus-visible,
+#octolens-panel .ol-iconbtn:focus-visible,
+#octolens-panel .ol-mini:focus-visible,
+#octolens-panel .ol-flink:focus-visible,
+#octolens-panel .ol-actbtn:focus-visible,
+#octolens-panel .ol-menu-item:focus-visible,
+#octolens-panel .ol-note-ta:focus-visible {
+  outline: 2px solid var(--fgColor-accent, var(--color-accent-fg, #0969da));
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ol-sk-shimmer { animation: none; }
+  #octolens-panel .ol-collapse-btn .ol-icon { transition: none; }
+}
+
+/* ================= hovercard ================= */
+
+#octolens-hovercard {
+  position: fixed;
+  z-index: 2147483000;
+  display: none;
+  width: 320px;
+  max-width: calc(100vw - 16px);
+  padding: 12px;
+  border: 1px solid var(--borderColor-default, var(--color-border-default, #d0d7de));
+  border-radius: 8px;
+  background: var(--overlay-bgColor, var(--color-canvas-overlay, #ffffff));
+  box-shadow: var(--shadow-floating-small, 0 8px 24px rgba(140, 149, 159, 0.2));
+  font-size: 12px;
+  color: var(--fgColor-default, var(--color-fg-default, #1f2328));
+}
+
+#octolens-hovercard .ol-card-name {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#octolens-hovercard .ol-card-desc {
+  margin: 4px 0 6px;
+  -webkit-line-clamp: 3;
+}
+
+#octolens-hovercard .ol-card-loading {
+  color: var(--fgColor-muted, var(--color-fg-muted, #59636e));
+}

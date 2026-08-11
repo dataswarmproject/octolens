@@ -1,0 +1,16 @@
+# OS
+Thumbs.db
+.DS_Store
+desktop.ini
+
+# Editors
+.vscode/
+.idea/
+
+# Node (only used for the test harness — no dependencies)
+node_modules/
+
+# Packed extension artifacts
+*.zip
+*.crx
+*.pem

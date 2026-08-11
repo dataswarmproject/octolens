@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>OctoLens</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <header>
+    <img src="../../icons/icon-32.png" alt="" width="20" height="20">
+    <h1>OctoLens</h1>
+    <span id="rate" class="rate" title="GitHub API quota remaining"></span>
+  </header>
+
+  <nav id="tabs">
+    <button class="tab" data-tab="search">Search</button>
+    <button class="tab" data-tab="bookmarks">Saved</button>
+    <button class="tab" data-tab="recent">Recent</button>
+    <button class="tab" data-tab="notes">Notes</button>
+    <button class="tab" data-tab="settings">Settings</button>
+  </nav>
+
+  <main>
+    <section id="tab-search" class="tab-page">
+      <input type="search" id="search-input" aria-label="Search GitHub repositories" placeholder="Search GitHub repositories…" autocomplete="off">
+      <p id="search-status" class="hint"></p>
+      <ul id="search-list" class="repo-list"></ul>
+    </section>
+
+    <section id="tab-bookmarks" class="tab-page">
+      <ul id="bookmark-list" class="repo-list"></ul>
+      <p id="bookmark-empty" class="empty">No bookmarks yet.<br>Click the ☆ in the OctoLens panel on any repo page.</p>
+    </section>
+
+    <section id="tab-recent" class="tab-page">
+      <ul id="recent-list" class="repo-list"></ul>
+      <p id="recent-empty" class="empty">No history yet.<br>Repos you visit on GitHub will show up here.</p>
+      <button id="clear-recent" class="ghost-btn">Clear history</button>
+    </section>
+
+    <section id="tab-notes" class="tab-page">
+      <ul id="note-list" class="repo-list"></ul>
+      <p id="notes-empty" class="empty">No notes yet.<br>Use the 📝 button in the OctoLens strip on any repo page.</p>
+    </section>
+
+    <section id="tab-settings" class="tab-page">
+      <h2>Features</h2>
+      <label class="row"><input type="checkbox" id="showSimilar"> Similar repositories panel</label>
+      <label class="row"><input type="checkbox" id="showStats"> Repo stats chips</label>
+      <label class="row"><input type="checkbox" id="showClone"> Copy-clone shortcuts</label>
+      <label class="row"><input type="checkbox" id="showOpenIn"> "Open in" editor links</label>
+      <label class="row"><input type="checkbox" id="showHovercards"> Repo hovercards on links</label>
+      <label class="row"><input type="checkbox" id="personalize"> Personalized ranking (likes, "more of…")</label>
+
+      <h2>Your interests</h2>
+      <div id="pref-chips" class="pref-chips"></div>
+      <div class="actions">
+        <button id="unhide-all" class="ghost-btn">Unhide repos</button>
+        <button id="reset-prefs" class="ghost-btn">Reset personalization</button>
+      </div>
+      <p class="hint">Built from likes, hides, clicks, bookmarks and "more of…" choices. All local.</p>
+
+      <h2>GitHub token <span class="muted">(optional)</span></h2>
+      <div class="token-row">
+        <input type="password" id="token" aria-label="GitHub personal access token" placeholder="ghp_… or github_pat_…" autocomplete="off">
+        <button id="save-token">Save</button>
+      </div>
+      <p class="hint">
+        Provides higher API limits. Use a fine-grained token with the least
+        privilege needed for public repositories. Stored only on this device.
+        <a href="https://github.com/settings/tokens" target="_blank" rel="noopener">Create one</a>
+      </p>
+      <p id="token-status" class="status"></p>
+
+      <h2>Backup &amp; restore</h2>
+      <div class="actions data-actions">
+        <button id="export-data" class="ghost-btn">Export data</button>
+        <button id="import-data" class="ghost-btn">Import data</button>
+        <input id="import-file" type="file" accept="application/json,.json" hidden>
+      </div>
+      <p class="hint">Move your bookmarks, history, notes, interests and feature settings between browsers. Backups never include your GitHub token or API cache. Import replaces this local data after confirmation.</p>
+      <p id="data-status" class="status" role="status" aria-live="polite"></p>
+
+      <h2>Cache</h2>
+      <div class="actions">
+        <button id="clear-cache" class="ghost-btn">Clear cache</button>
+        <span id="cache-status" class="status"></span>
+      </div>
+      <p class="hint">API responses are cached for 12 h. Bookmarks, history and settings never leave your machine.</p>
+    </section>
+  </main>
+
+  <footer>
+    <span id="version"></span>
+    <span class="foot-sep">·</span>
+    <a id="repo-link" href="#">GitHub ↗</a>
+    <span class="foot-sep">·</span>
+    <span>AGPL-3.0</span>
+    <span class="foot-sep">·</span>
+    <span title="Collapse/expand the strip on any repo page">Alt+Shift+O</span>
+  </footer>
+
+  <script src="popup.js"></script>
+</body>
+</html>
