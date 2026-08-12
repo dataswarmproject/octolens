@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "OctoLens — Similar Repos for GitHub",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "Shows similar repositories, quick stats, clone shortcuts, hovercards and bookmarks on every GitHub repository page.",
   "minimum_chrome_version": "105",
   "permissions": ["storage"],

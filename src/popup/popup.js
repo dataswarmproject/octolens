@@ -343,6 +343,7 @@ async function importLocalData(file) {
 // ---------------------------------------------------------------- init
 
 const REPO_URL = 'https://github.com/dataswarmproject/octolens';
+const PRIVACY_URL = `${REPO_URL}/blob/main/PRIVACY.md`;
 
 document.addEventListener('DOMContentLoaded', async () => {
   $('version').textContent = `OctoLens v${chrome.runtime.getManifest().version}`;
@@ -350,6 +351,12 @@ document.addEventListener('DOMContentLoaded', async () => {
     e.preventDefault();
     openUrl(REPO_URL);
   });
+  for (const id of ['privacy-link', 'footer-privacy-link']) {
+    $(id).addEventListener('click', (e) => {
+      e.preventDefault();
+      openUrl(PRIVACY_URL);
+    });
+  }
 
   for (const btn of document.querySelectorAll('.tab')) {
     btn.addEventListener('click', () => activateTab(btn.dataset.tab));

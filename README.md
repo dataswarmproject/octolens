@@ -23,6 +23,7 @@
   <a href="#installation">Install</a> ·
   <a href="#product-tour">Product tour</a> ·
   <a href="#how-recommendations-work">How it works</a> ·
+  <a href="PRIVACY.md">Privacy</a> ·
   <a href="#development">Build with us</a>
 </p>
 
@@ -117,6 +118,8 @@ OctoLens is designed so the useful profile it learns remains under your control.
 - The optional token is used only in the `Authorization` header sent to GitHub.
 - Personalization weights are capped, inspectable, removable, and resettable.
 - Hovercards protect the remaining unauthenticated API budget when it becomes low.
+
+Read the complete [OctoLens Privacy Policy](PRIVACY.md).
 
 ### Optional GitHub token
 
