@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/banner.png" alt="OctoLens — a personal discovery lens for GitHub" width="100%">
+  <img src="assets/banner-v2.png" alt="OctoLens — see beyond the repository with private GitHub discovery" width="100%">
 </p>
 
 <p align="center">
