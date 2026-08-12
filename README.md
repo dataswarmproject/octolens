@@ -142,26 +142,9 @@ Open **OctoLens → Settings → Backup & restore**:
 
 ## How recommendations work
 
-```text
-current repository
-      │
-      ├── metadata: topics, language, name, description
-      │
-      ▼
-specific topics first ── generic discovery tags removed
-      │
-      ▼
-up to two GitHub Search queries
-      │
-      ▼
-raw candidate pool cached for 12 hours
-      │
-      ▼
-relevance score + optional local preference score
-      │
-      ▼
-six recommendations, re-ranked instantly after feedback
-```
+<p align="center">
+  <img src="assets/recommendation-flow.svg" alt="OctoLens recommendation flow: repository context becomes focused GitHub searches, a cached candidate pool, local ranking, and six recommendations that adapt to local feedback" width="100%">
+</p>
 
 The base relevance score favors shared topics, then language alignment, then star count on a logarithmic scale. Popularity can break ties between relevant peers, but it cannot overpower topical fit.
 
