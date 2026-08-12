@@ -1,0 +1,174 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="760" viewBox="0 0 1440 760" role="img" aria-labelledby="title desc">
+  <title id="title">How OctoLens recommendations work</title>
+  <desc id="desc">A six-stage flow from the current GitHub repository through context extraction, focused search, a cached candidate pool, local ranking, and six recommendations. Likes, hides, clicks, and more-of choices feed back into local ranking.</desc>
+
+  <defs>
+    <linearGradient id="background" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#101c2b"/>
+      <stop offset="0.55" stop-color="#070d17"/>
+      <stop offset="1" stop-color="#090f18"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#79c0ff"/>
+      <stop offset="1" stop-color="#4493f8"/>
+    </linearGradient>
+    <linearGradient id="result" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#14243a"/>
+      <stop offset="1" stop-color="#0d1623"/>
+    </linearGradient>
+    <pattern id="grid" width="48" height="48" patternUnits="userSpaceOnUse">
+      <path d="M 48 0 L 0 0 0 48" fill="none" stroke="#27415f" stroke-opacity="0.24" stroke-width="1"/>
+    </pattern>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="150%">
+      <feDropShadow dx="0" dy="12" stdDeviation="12" flood-color="#000" flood-opacity="0.34"/>
+    </filter>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#4493f8"/>
+    </marker>
+    <marker id="arrowMuted" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#6e8baa"/>
+    </marker>
+    <style>
+      .display { font-family: Inter, "Segoe UI", Arial, sans-serif; fill: #f0f6fc; }
+      .body { font-family: Inter, "Segoe UI", Arial, sans-serif; fill: #c9d1d9; }
+      .muted { font-family: Inter, "Segoe UI", Arial, sans-serif; fill: #8b949e; }
+      .mono { font-family: "IBM Plex Mono", "Cascadia Mono", Consolas, monospace; }
+      .card { fill: #0d1117; stroke: #30445b; stroke-width: 1.5; }
+      .step { fill: #79c0ff; font: 700 14px Inter, "Segoe UI", Arial, sans-serif; letter-spacing: 1.4px; }
+      .label { fill: #f0f6fc; font: 700 22px Inter, "Segoe UI", Arial, sans-serif; }
+      .detail { fill: #9daaba; font: 400 16px Inter, "Segoe UI", Arial, sans-serif; }
+    </style>
+  </defs>
+
+  <rect width="1440" height="760" rx="28" fill="url(#background)"/>
+  <rect width="1440" height="760" rx="28" fill="url(#grid)"/>
+  <circle cx="1160" cy="96" r="280" fill="#4493f8" opacity="0.035"/>
+  <circle cx="1160" cy="96" r="190" fill="#42c7ff" opacity="0.025"/>
+
+  <!-- Header and lens mark -->
+  <g transform="translate(58 48)">
+    <circle cx="34" cy="34" r="31" fill="#111b29" stroke="#3d5875" stroke-width="2"/>
+    <circle cx="30" cy="29" r="15" fill="none" stroke="url(#accent)" stroke-width="7"/>
+    <path d="M41 40 L55 54" stroke="#4493f8" stroke-width="8" stroke-linecap="round"/>
+    <path d="M24 19 A14 14 0 0 1 30 15" fill="none" stroke="#f0f6fc" stroke-opacity="0.75" stroke-width="3" stroke-linecap="round"/>
+    <path d="M52 13 L55 20 L62 23 L55 26 L52 33 L49 26 L42 23 L49 20 Z" fill="#79c0ff"/>
+  </g>
+  <text x="142" y="75" class="display" font-size="38" font-weight="750">How OctoLens finds the right repositories</text>
+  <text x="143" y="111" class="muted" font-size="18">Focused discovery first. Personal preference second. Popularity only breaks relevant ties.</text>
+  <g transform="translate(1172 56)">
+    <rect width="208" height="40" rx="20" fill="#0d1826" stroke="#315273"/>
+    <circle cx="23" cy="20" r="5" fill="#3fb950"/>
+    <text x="39" y="25" class="step" font-size="12">LOCAL-FIRST</text>
+  </g>
+
+  <!-- Connectors -->
+  <path d="M276 360 H323" stroke="#4493f8" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
+  <path d="M633 282 H679" stroke="#4493f8" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
+  <path d="M835 354 V395" stroke="#4493f8" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
+  <path d="M679 477 H633" stroke="#4493f8" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
+  <path d="M477 550 V586 H1082 V518" stroke="#4493f8" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
+
+  <!-- Input card -->
+  <g filter="url(#shadow)">
+    <rect x="58" y="218" width="218" height="300" rx="18" class="card"/>
+    <rect x="58" y="218" width="6" height="300" rx="3" fill="#4493f8"/>
+  </g>
+  <circle cx="110" cy="276" r="26" fill="#14243a" stroke="#3d5875"/>
+  <path d="M101 278 L108 285 L121 269" fill="none" stroke="#79c0ff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="94" y="333" class="step">01 · INPUT</text>
+  <text x="94" y="370" class="label">Current</text>
+  <text x="94" y="397" class="label">repository</text>
+  <text x="94" y="435" class="detail mono">owner / name</text>
+  <text x="94" y="462" class="detail">Public GitHub page</text>
+  <rect x="94" y="482" width="126" height="25" rx="12.5" fill="#10294a"/>
+  <text x="108" y="500" class="step" font-size="11">VISIBLE CONTEXT</text>
+
+  <!-- Stage 2 -->
+  <g filter="url(#shadow)">
+    <rect x="324" y="210" width="308" height="144" rx="18" class="card"/>
+  </g>
+  <circle cx="359" cy="248" r="17" fill="#10294a"/>
+  <path d="M350 249 H368 M354 243 H364 M357 255 H361" stroke="#79c0ff" stroke-width="2.5" stroke-linecap="round"/>
+  <text x="389" y="245" class="step">02 · EXTRACT</text>
+  <text x="350" y="288" class="label">Capture useful signals</text>
+  <text x="350" y="318" class="detail">Topics · language · name · description</text>
+  <text x="350" y="340" class="muted" font-size="14">Specific topics first; generic tags filtered out.</text>
+
+  <!-- Stage 3 -->
+  <g filter="url(#shadow)">
+    <rect x="680" y="210" width="310" height="144" rx="18" class="card"/>
+  </g>
+  <circle cx="715" cy="248" r="17" fill="#10294a"/>
+  <circle cx="711" cy="245" r="7" fill="none" stroke="#79c0ff" stroke-width="2.5"/>
+  <path d="M716 251 L723 258" stroke="#79c0ff" stroke-width="3" stroke-linecap="round"/>
+  <text x="745" y="245" class="step">03 · SEARCH</text>
+  <text x="706" y="288" class="label">Build focused queries</text>
+  <text x="706" y="318" class="detail">Up to two GitHub Search requests</text>
+  <text x="706" y="340" class="muted" font-size="14">Topical context stays ahead of raw popularity.</text>
+
+  <!-- Stage 4 -->
+  <g filter="url(#shadow)">
+    <rect x="680" y="396" width="310" height="154" rx="18" class="card"/>
+  </g>
+  <circle cx="715" cy="434" r="17" fill="#10294a"/>
+  <path d="M706 429 H724 M706 435 H724 M706 441 H719" stroke="#79c0ff" stroke-width="2.5" stroke-linecap="round"/>
+  <text x="745" y="431" class="step">04 · POOL</text>
+  <text x="706" y="474" class="label">Create candidate pool</text>
+  <text x="706" y="504" class="detail">Deduplicate · exclude source · normalize</text>
+  <g transform="translate(706 519)">
+    <rect width="134" height="23" rx="11.5" fill="#132238" stroke="#2a4868"/>
+    <text x="15" y="16" class="step" font-size="11">CACHED FOR 12 H</text>
+  </g>
+
+  <!-- Stage 5 -->
+  <g filter="url(#shadow)">
+    <rect x="324" y="396" width="308" height="154" rx="18" class="card"/>
+  </g>
+  <circle cx="359" cy="434" r="17" fill="#10294a"/>
+  <path d="M351 442 V432 M359 442 V424 M367 442 V428" stroke="#79c0ff" stroke-width="3" stroke-linecap="round"/>
+  <text x="389" y="431" class="step">05 · RANK</text>
+  <text x="350" y="474" class="label">Rank locally</text>
+  <text x="350" y="504" class="detail">Relevance + optional preference score</text>
+  <text x="350" y="530" class="muted" font-size="14">Cached candidates remain unpersonalized.</text>
+
+  <!-- Result card -->
+  <g filter="url(#shadow)">
+    <rect x="1082" y="202" width="300" height="316" rx="20" fill="url(#result)" stroke="#4493f8" stroke-width="1.8"/>
+  </g>
+  <text x="1112" y="241" class="step">06 · RESULT</text>
+  <text x="1112" y="279" class="display" font-size="28" font-weight="750">Six recommendations</text>
+  <text x="1112" y="309" class="muted" font-size="15">Relevant alternatives, ready to compare.</text>
+  <g transform="translate(1112 337)">
+    <rect width="240" height="45" rx="10" fill="#0d1117" stroke="#2d435b"/>
+    <circle cx="23" cy="22" r="9" fill="#a371f7"/>
+    <rect x="43" y="12" width="122" height="7" rx="3.5" fill="#79c0ff" opacity="0.9"/>
+    <rect x="43" y="27" width="167" height="6" rx="3" fill="#8b949e" opacity="0.48"/>
+  </g>
+  <g transform="translate(1112 394)">
+    <rect width="240" height="45" rx="10" fill="#0d1117" stroke="#2d435b"/>
+    <circle cx="23" cy="22" r="9" fill="#3fb950"/>
+    <rect x="43" y="12" width="144" height="7" rx="3.5" fill="#79c0ff" opacity="0.9"/>
+    <rect x="43" y="27" width="151" height="6" rx="3" fill="#8b949e" opacity="0.48"/>
+  </g>
+  <g transform="translate(1112 451)">
+    <rect width="240" height="45" rx="10" fill="#0d1117" stroke="#2d435b"/>
+    <circle cx="23" cy="22" r="9" fill="#f0883e"/>
+    <rect x="43" y="12" width="106" height="7" rx="3.5" fill="#79c0ff" opacity="0.9"/>
+    <rect x="43" y="27" width="181" height="6" rx="3" fill="#8b949e" opacity="0.48"/>
+  </g>
+
+  <!-- Feedback loop -->
+  <path d="M1232 518 V650 C1232 678 1210 700 1182 700 H480 C452 700 431 678 431 650 V564" fill="none" stroke="#6e8baa" stroke-width="2.5" stroke-dasharray="7 7" marker-end="url(#arrowMuted)"/>
+  <rect x="693" y="671" width="338" height="36" rx="18" fill="#0d1826" stroke="#2e4d6b"/>
+  <circle cx="718" cy="689" r="5" fill="#79c0ff"/>
+  <text x="735" y="695" class="body" font-size="15">Likes · hides · clicks · bookmarks · “more of…”</text>
+  <text x="746" y="738" class="muted" font-size="15">Feedback re-ranks instantly—no additional API request required.</text>
+
+  <!-- Bottom-left privacy proof -->
+  <g transform="translate(58 584)">
+    <path d="M16 1 L29 6 V16 C29 26 23 33 16 37 C9 33 3 26 3 16 V6 Z" fill="#10294a" stroke="#4493f8"/>
+    <path d="M10 18 L14 22 L22 13" fill="none" stroke="#79c0ff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="45" y="16" class="display" font-size="16" font-weight="700">Your signal stays local</text>
+    <text x="45" y="39" class="muted" font-size="14">GitHub serves the public metadata. OctoLens keeps your preference profile in Chrome.</text>
+  </g>
+</svg>
